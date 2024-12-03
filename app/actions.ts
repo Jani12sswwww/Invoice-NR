@@ -85,7 +85,11 @@ export async function createInvoice( prevState: any, formData: FormData) {
             dateStyle: "long"}).format(new Date (submission.value.date)),
 
           "TotalAmount": formatCurrency({amount: submission.value.total, currency: submission.value.currency as any}),
-          "invoiceLink": `http://localhost:3000/api/invoice/${data.id}`,
+          invoiceLink:
+          process.env.NODE_ENV !== "production"
+            ? `http://localhost:3000/api/invoice/${data.id}`
+            : `https://invoice-nr.vercel.app//api/invoice/${data.id}`,
+      
         },
       });
 
@@ -151,9 +155,10 @@ export async function createInvoice( prevState: any, formData: FormData) {
               currency: submission.value.currency as any,
             }),
             invoiceLink:
-              process.env.NODE_ENV !== "production"
-                ? `http://localhost:3000/api/invoice/${data.id}`
-                : `https://invoice-marshal.vercel.app/api/invoice/${data.id}`,
+            process.env.NODE_ENV !== "production"
+              ? `http://localhost:3000/api/invoice/${data.id}`
+              : `https://invoice-nr.vercel.app//api/invoice/${data.id}`,
+        
           },
         });
       
