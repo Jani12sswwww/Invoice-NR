@@ -70,13 +70,13 @@ export async function createInvoice( prevState: any, formData: FormData) {
 
     
     const sender = {
-        email: "hello@demomailtrap.com",
-        name: "Rizwan Muhammad",
-      };
+      email: "hello@nr-repair-service.com",
+      name: "NR Repair Service",
+    };
 
     emailClient.send({
         from: sender,
-        to: [{email: " ri2976854@gmail.com"}],
+        to: [{email: submission.value.clientEmail}],
         template_uuid: "59888352-521d-429b-9d25-fc71ee5f6e5d",
         template_variables: {
           "clientName": submission.value.clientName,
@@ -136,15 +136,15 @@ export async function createInvoice( prevState: any, formData: FormData) {
         });
       
         const sender = {
-          email: "hello@demomailtrap.com",
-          name: "Rizwan",
+          email: "hello@nr-repair-service.com",
+          name: "NR Repair Service",
         };
       
         emailClient.send({
           from: sender,
-          to: [{ email: "ri2976854@gmail.com" }],
-          template_uuid: "97e1fa1a-5479-4343-ab5e-a0d3639ababd",        
-            template_variables: {
+          to: [{ email: submission.value.clientEmail }],
+          template_uuid: "97e1fa1a-5479-4343-ab5e-a0d3639ababd",
+              template_variables: {
             clientName: submission.value.clientName,
             invoiceNumber: submission.value.invoiceNumber,
             invoiceDueDate: new Intl.DateTimeFormat("en-US", {

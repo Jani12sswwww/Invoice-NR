@@ -117,7 +117,7 @@ export function CreateInvoice({address, lastName, firstName,email}: iAppProps) {
                              name={fields.fromName.name} 
                              key={fields.fromName.key} 
                              placeholder="Your Name"
-                             defaultValue={firstName+""+lastName}
+                             defaultValue={firstName+" "+lastName}
                              />
                              <p className="text-sm text-red-500">{fields.fromName.errors}</p>
 
@@ -188,7 +188,7 @@ export function CreateInvoice({address, lastName, firstName,email}: iAppProps) {
             mode="single" 
             onSelect={(date) => {
                 if (date) {
-                    setSelectedDate(date); // Update state with the selected date
+                    setSelectedDate(date); 
                 }
             }}
         />

@@ -14,8 +14,10 @@ export async function POST(
   try {
     const session = await requireUser();
 
+    // Await the params to destructure
     const { invoiceId } = await params;
 
+    // Fetch the invoice data
     const invoiceData = await prisma.invoice.findUnique({
       where: {
         id: invoiceId,
@@ -27,19 +29,28 @@ export async function POST(
       return NextResponse.json({ error: "Invoice not found" }, { status: 404 });
     }
 
+    if (!invoiceData.clientEmail) {
+      return NextResponse.json(
+        { error: "Client email is not available" },
+        { status: 400 }
+      );
+    }
+
+    // Define sender details
     const sender = {
-      email: "hello@demomailtrap.com",
-      name: "Rizwan",
+      email: "hello@nr-repair-service.com",
+      name: "NR Repair Service",
     };
 
-    emailClient.send({
+    // Send the email
+    await emailClient.send({
       from: sender,
-      to: [{ email: "ri2976854@gmail.com" }],
+      to: [{ email: invoiceData.clientEmail }],
       template_uuid: "47800bc8-da5e-4fed-9d9f-6444f539be58",
-    template_variables: {
-        first_name: invoiceData.clientName,
-        company_info_name: "NR repair service",
-        company_info_address: "Plaza lowyat 2nd floor",
+      template_variables: {
+        first_name: invoiceData.clientName || "Valued Customer",
+        company_info_name: "NR Repair Service",
+        company_info_address: "Plaza Lowyat, 2nd Floor",
         company_info_city: "Kuala Lumpur",
         company_info_zip_code: "55100",
         company_info_country: "Malaysia",
@@ -48,8 +59,9 @@ export async function POST(
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("Error sending email reminder:", error);
     return NextResponse.json(
-      { error: "Failed to send Email reminder" },
+      { error: "Failed to send email reminder" },
       { status: 500 }
     );
   }
