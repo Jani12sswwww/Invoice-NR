@@ -88,7 +88,7 @@ export async function createInvoice( prevState: any, formData: FormData) {
           invoiceLink:
           process.env.NODE_ENV !== "production"
             ? `http://localhost:3000/api/invoice/${data.id}`
-            : `https://invoice-nr.vercel.app//api/invoice/${data.id}`,
+            : `https://nr-repair-service.com//api/invoice/${data.id}`,
       
         },
       });
@@ -137,7 +137,7 @@ export async function createInvoice( prevState: any, formData: FormData) {
       
         const sender = {
           email: "hello@nr-repair-service.com",
-          name: "NR Repair Service",
+          name: " NR Repair Service",
         };
       
         emailClient.send({
@@ -157,7 +157,7 @@ export async function createInvoice( prevState: any, formData: FormData) {
             invoiceLink:
             process.env.NODE_ENV !== "production"
               ? `http://localhost:3000/api/invoice/${data.id}`
-              : `https://invoice-nr.vercel.app//api/invoice/${data.id}`,
+              : `https://nr-repair-service.com/api/invoice/${data.id}`,
         
           },
         });
